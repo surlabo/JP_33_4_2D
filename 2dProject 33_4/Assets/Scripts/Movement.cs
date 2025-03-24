@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     private float jumpForce = 300f;
     [SerializeField]
     private float detectDisance = 1f;
+    [SerializeField]
+    private Animator animator;
 
     private LayerMask layer = 1 << 3 | 1 << 6 ;
 
@@ -29,6 +31,8 @@ public class Movement : MonoBehaviour
         float dir = Input.GetAxis("Horizontal");
         Vector2 vectorDir = new Vector2(dir, 0);
         transform.Translate(vectorDir * Time.deltaTime * speed);
+
+        animator.SetBool("Run", dir != 0);
 
         var hit = Physics2D.Raycast(transform.position, Vector2.down, detectDisance, 1 << 3);
         if (hit.collider != null)
